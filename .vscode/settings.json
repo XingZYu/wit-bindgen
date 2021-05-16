@@ -1,0 +1,6 @@
+{
+    "files.associations": {
+        "wasmtime.h": "c",
+        "wasm.h": "c"
+    }
+}

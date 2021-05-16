@@ -1,0 +1,6 @@
+[submodule "crates/wasmtime"]
+	path = crates/wasmtime
+	url = git@github.com:edittriendl/wasmtime.git
+[submodule "crates/wasm-bindgen"]
+	path = crates/wasm-bindgen
+	url = git@github.com:edittriendl/wasm-bindgen.git
