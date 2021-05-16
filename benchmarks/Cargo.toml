@@ -1,0 +1,12 @@
+[package]
+name = "wit-bindgen-benchmark"
+version = "0.1.0"
+authors = ["Xingzi Yu"]
+edition = "2018"
+
+[dependencies]
+tempfile = "3.0"
+wit-api = { path = "../crates/api" }
+anyhow = "1.0.19"
+rayon = "1.0"
+

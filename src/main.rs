@@ -1,6 +1,5 @@
-use structopt::StructOpt;
 use std::path::PathBuf;
-
+use structopt::StructOpt;
 
 #[derive(Debug, StructOpt)]
 #[structopt(name = "example", about = "An example of StructOpt usage.")]

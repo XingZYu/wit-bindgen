@@ -1,0 +1,10 @@
+[package]
+name = "wit-api"
+version = "0.1.0"
+authors = ["Yu Xingzi <897544902@qq.com>"]
+edition = "2018"
+
+[dependencies]
+anyhow = "1.0.19"
+wasm-bindgen-cli-support = { path = "../wasm-bindgen/crates/cli-support", version = "=0.2.73" }
+wasmtime = { path = "../wasmtime/crates/api", version = "0.12.0" }
