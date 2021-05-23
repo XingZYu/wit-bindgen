@@ -1623,6 +1623,7 @@ dependencies = [
  "assert_cmd",
  "rayon",
  "structopt",
+ "tempfile",
  "wasm-bindgen-cli-support",
  "wasmtime",
  "wit-api",
@@ -1635,6 +1636,7 @@ dependencies = [
  "anyhow",
  "rayon",
  "tempfile",
+ "wasm-bindgen-cli-support",
  "wit-api",
 ]
 

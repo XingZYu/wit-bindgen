@@ -7,6 +7,7 @@ edition = "2018"
 [dependencies]
 tempfile = "3.0"
 wit-api = { path = "../crates/api" }
+wasm-bindgen-cli-support = { path = "../crates/wasm-bindgen/crates/cli-support", version = "=0.2.73" }
 anyhow = "1.0.19"
 rayon = "1.0"
 

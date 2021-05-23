@@ -16,6 +16,7 @@ wit-api = { path = "crates/api", version = "0.1.0" }
 
 [dev-dependencies]
 assert_cmd = "1.0"
+tempfile = "3.2.0"
 
 [workspace]
 members = [
