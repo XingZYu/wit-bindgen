@@ -1,0 +1,1 @@
+{"Fib":[{"debug_name":"fib_new","comments":"","arg_names":[],"kind":{"StaticFunction":{"class":"Fib","name":"new"}},"generate_typescript":true,"signature":[[],["Fib"]]},{"debug_name":"fib_fibonacci","comments":"","arg_names":["n"],"kind":{"Method":{"class":"Fib","name":"fibonacci","consumed":false}},"generate_typescript":true,"signature":[["int32_t","int32_t"],["int32_t"]]}]}

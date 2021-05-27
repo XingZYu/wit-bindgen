@@ -7,19 +7,19 @@ use wasm_bindgen_cli_support::Bindgen;
 
 #[test]
 fn interface_types_test() -> Result<()> {
-    let filter = env::args().nth(1);
-
     let mut tests = Vec::new();
-    let dir = env::current_dir()?.join("tests/interface_types");
-    for entry in dir.read_dir()? {
+    let mut dir = env::current_dir()?;
+    dir.push("tests");
+    dir.push("interface_types");
+    for entry in dir
+        .read_dir()
+        .expect(format!("read dir {:#?} failed", dir).as_str())
+    {
         let path = entry?.path();
-        if path.extension().and_then(|s| s.to_str()) != Some("wat") {
+        let ext = path.extension().and_then(|s| s.to_str());
+
+        if ext != Some("wat") {
             continue;
-        }
-        if let Some(filter) = &filter {
-            if !path.display().to_string().contains(filter) {
-                continue;
-            }
         }
         tests.push(path);
     }
@@ -42,7 +42,6 @@ fn interface_types_test() -> Result<()> {
 }
 
 fn runtest(test: &Path) -> Result<(), Error> {
-    println!("{:#?}", &test);
     let submod = match test.file_stem() {
         Some(s) => s,
         None => panic!("Empty Filename!"),

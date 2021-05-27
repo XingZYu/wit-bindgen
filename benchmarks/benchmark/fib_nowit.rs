@@ -1,6 +1,3 @@
-use wasm_bindgen::prelude::*;
-
-#[wasm_bindgen]
 pub fn fibonacci(n: i32) -> i32 {
     let mut a = 1;
     let mut b = 1;

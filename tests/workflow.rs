@@ -1,16 +1,22 @@
-use anyhow::{bail, Error, Result};
+mod workflow_test;
+use anyhow::{bail, Result, Error};
 use rayon::prelude::*;
-use std::io::{self, Write};
-use std::{env, ffi::OsString, path::PathBuf, process::Command};
+use std::env;
+use std::path::PathBuf;
+use std::ffi::OsString;
+use std::process::Command;
 use std::fs;
-use wasm_bindgen_cli_support::Bindgen;
+use std::io::{self, Write};
+use wit_api::generate_wit_binary;
 
-fn main() -> Result<()> {
+#[test]
+fn workflow() -> Result<()> {
     let filter = env::args().nth(1);
 
     let mut source = Vec::new();
     let mut dir = env::current_dir()?;
-    dir.push("benchmark");
+    dir.push("tests");
+    dir.push("struct_export");
 
     for entry in dir
         .read_dir()
@@ -136,48 +142,18 @@ fn run_benchmark(source: &PathBuf) -> Result<(), Error> {
     let mut wasm_path = source.to_path_buf();
     compile_to_wasm(&mut wasm_path, false)?;
     // println!("Wasm Path: {:#?}", &wasm_path);
-    let td = env::current_dir()?
-        .join("..")
-        .join("target")
-        .join("benchmarks")
-        .join("wasm");
+    let target = env::current_dir()?
+        .join("tests")
+        .join("struct_export");
 
     // println!("Wit Path: {:#?}", &td);
-    check_dir(&td)?;
 
-    env::set_var("WASM_INTERFACE_TYPES", "1");
-    let mut b = Bindgen::new();
-    b.input_path(&wasm_path.to_path_buf());
-    b.generate(&td)?;
-    // clean(&wasm_path)?; 
-    Ok(())
-}
-
-fn check_dir(path: &PathBuf) -> Result<(), Error> {
-    let mut mkdir = Command::new("mkdir");
-    if cfg!(windows) {
-        // println!("Windows system");
-        mkdir
-            .arg(&path);
-    } else if cfg!(unix) {
-        // println!("Unix like system");
-        mkdir
-            .arg("-p")
-            .arg(&path);
-    }
-    exec(&mut mkdir)?;
-    Ok(())
-}
-
-fn clean(source: &PathBuf) -> Result<(), Error> {
-    let mut rm = Command::new("rm");
-    rm.arg(&source);
-    exec(&mut rm)?;
+    generate_wit_binary(&wasm_path, &target)?;
     Ok(())
 }
 
 fn exec(cmd: &mut Command) -> Result<(), Error> {
-    println!("{:#?}", cmd);
+    // println!("{:#?}", cmd);
     let output = cmd.output().expect("failed to execute process");
 
     if output.status.success() {
@@ -197,7 +173,6 @@ fn tab(s: &str) -> String {
 
 fn bindgen_root() -> PathBuf {
     let mut root = env::current_dir().unwrap();
-    root.pop(); // remove 'benchmarks'
     root.push("crates");
     root.push("wasm-bindgen");
     root 
